@@ -13,10 +13,19 @@ class ConnectionController extends Controller
     {
         // Logic to fetch and return sent requests data
         $currentUser = auth()->user();
-        $connections = Connection::where('user1_id', $currentUser->id)->get();
+        $connections = Connection::where('user1_id', $currentUser->id)->paginate(10);
 
         return view('connections.get_connections', compact('connections'));
     }
+
+    public function loadMoreConnections(Request $request)
+{
+    $currentUser = auth()->user();
+    $connections = Connection::where('user1_id', $currentUser->id)
+        ->paginate(5, ['*'], 'page', $request->input('page'));
+
+    return view('connections.load_more', compact('connections'));
+}
 
     public function create(Request $request, $userId)
     {

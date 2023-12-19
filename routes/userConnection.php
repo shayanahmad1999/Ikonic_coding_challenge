@@ -18,5 +18,6 @@ Route::get('/user-remove/{userId}', [SendRequestController::class, 'destroy'])->
 Route::get('/recieved-requests', [RecievedRequestController::class, 'index'])->name('getRecievedRequests');
 
 Route::get('/connections', [ConnectionController::class, 'index'])->name('getConnections');
+Route::get('/connections/load-more', [ConnectionController::class, 'loadMoreConnections']);
 Route::post('/connections/{userId}', [ConnectionController::class, 'create'])->name('connections');
 Route::get('/remove-connection/{userId}', [ConnectionController::class, 'destroy'])->name('destroy');
