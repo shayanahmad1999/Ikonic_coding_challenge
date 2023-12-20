@@ -3,59 +3,105 @@ var contentId = 'content';
 var skipCounter = 0;
 var takeAmount = 10;
 
+//:::::::::::::::::: network_connections work ::::::::::::::::::://
+$(document).ready(function () {
+  $('.connectButton').on('click', function () {
+    var userId = $(this).data('user-id');
+    sendConnectionRequest(userId);
+  });
 
-function getRequests(mode) {
-  // your code here...
-}
+  // Function to load suggestions content
+  function loadSuggestions() {
+    // Assuming you have a route to fetch suggestions content
+    $.ajax({
+      url: '/suggestions', // Replace with your actual route
+      type: 'GET',
+      success: function (response) {
+        $('#content').html(response);
+        $('#content').removeClass('d-none');
+      },
+      error: function (error) {
+        console.error(error);
+        alert('Error loading suggestions.');
+      }
+    });
+  }
 
-function getMoreRequests(mode) {
-  // Optional: Depends on how you handle the "Load more"-Functionality
-  // your code here...
-}
+  // Function to load sent requests content
+  function loadSentRequests() {
+    // Assuming you have a route to fetch sent requests content
+    $.ajax({
+      url: '/send-requests', // Replace with your actual route
+      type: 'GET',
+      success: function (response) {
+        $('#content').html(response);
+        $('#content').removeClass('d-none');
+      },
+      error: function (error) {
+        console.error(error);
+        alert('Error loading sent requests.');
+      }
+    });
+  }
 
-function getConnections() {
-  // your code here...
-}
+  // Function to load recieved requests content
+  function loadRecievedRequests() {
+    // Assuming you have a route to fetch sent requests content
+    $.ajax({
+      url: '/recieved-requests', // Replace with your actual route
+      type: 'GET',
+      success: function (response) {
+        $('#content').html(response);
+        $('#content').removeClass('d-none');
+      },
+      error: function (error) {
+        console.error(error);
+        alert('Error loading sent requests.');
+      }
+    });
+  }
 
-function getMoreConnections() {
-  // Optional: Depends on how you handle the "Load more"-Functionality
-  // your code here...
-}
+  // Function to load recieved connections content
+  function loadRecievedConnections() {
+    // Assuming you have a route to fetch sent requests content
+    $.ajax({
+      url: '/connections', // Replace with your actual route
+      type: 'GET',
+      success: function (response) {
+        $('#content').html(response);
+        $('#content').removeClass('d-none');
+      },
+      error: function (error) {
+        console.error(error);
+        alert('Error loading sent requests.');
+      }
+    });
+  }
 
-function getConnectionsInCommon(userId, connectionId) {
-  // your code here...
-}
+  // Load initial content
+  loadSuggestions();
 
-function getMoreConnectionsInCommon(userId, connectionId) {
-  // Optional: Depends on how you handle the "Load more"-Functionality
-  // your code here...
-}
+  // Handle radio button click event
+  $('input[name="btnradio"]').on('change', function () {
+    var selectedRadio = $('input[name="btnradio"]:checked').attr('id');
 
-function getSuggestions() {
-  // your code here...
-}
-
-function getMoreSuggestions() {
-  // Optional: Depends on how you handle the "Load more"-Functionality
-  // your code here...
-}
-
-function sendRequest(userId, suggestionId) {
-  // your code here...
-}
-
-function deleteRequest(userId, requestId) {
-  // your code here...
-}
-
-function acceptRequest(userId, requestId) {
-  // your code here...
-}
-
-function removeConnection(userId, connectionId) {
-  // your code here...
-}
-
-$(function () {
-  //getSuggestions();
+    // Perform actions based on the selected radio button
+    switch (selectedRadio) {
+      case 'btnradio1':
+        loadSuggestions();
+        break;
+      case 'btnradio2':
+        loadSentRequests();
+        break;
+      case 'btnradio3':
+        loadRecievedRequests();
+        break;
+      case 'btnradio4':
+        loadRecievedConnections();
+        break;
+      // Add cases for other radio buttons/views
+    }
+  });
 });
+
+//:::::::::::::::::: network_connections work ::::::::::::::::::://
